@@ -1,0 +1,12 @@
+{
+  "name": "my-vercel-api",
+  "version": "1.0.0",
+  "description": "Simple API backend for GitHub Pages projects",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vercel dev"
+  },
+  "dependencies": {
+    "@vercel/kv": "^1.0.1"
+  }
+}
