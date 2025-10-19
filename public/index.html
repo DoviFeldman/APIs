@@ -1,9 +1,10 @@
-
-
-    
-    
-    My API Backend
-    
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My API Backend</title>
+    <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             max-width: 800px;
@@ -22,29 +23,31 @@
             margin: 15px 0;
             border-left: 4px solid #0070f3;
         }
-    
+    </style>
+</head>
+<body>
+    <h1>🚀 My API Backend</h1>
+    <p>This is your personal API backend. Here are the available endpoints:</p>
 
+    <div class="endpoint">
+        <h2>📊 Counter API</h2>
+        <code>GET /api/counter?id=button-name</code>
+        <p>Increments and returns a counter. Use for buttons, QR codes, etc.</p>
+    </div>
 
-    🚀 My API Backend
-    This is your personal API backend. Here are the available endpoints:
+    <div class="endpoint">
+        <h2>👥 Visitor Tracker</h2>
+        <code>GET /api/visitor-tracker?page=page-name</code>
+        <p>Tracks visitor IPs, location, and visit counts.</p>
+    </div>
 
-    
-        📊 Counter API
-        GET /api/counter?id=button-name
-        Increments and returns a counter. Use for buttons, QR codes, etc.
-    
+    <div class="endpoint">
+        <h2>📋 Get Visitors</h2>
+        <code>GET /api/get-visitors?page=page-name</code>
+        <p>Returns all visitor data for a specific page.</p>
+    </div>
 
-    
-        👥 Visitor Tracker
-        GET /api/visitor-tracker?page=page-name
-        Tracks visitor IPs, location, and visit counts.
-    
-
-    
-        📋 Get Visitors
-        GET /api/get-visitors?page=page-name
-        Returns all visitor data for a specific page.
-    
-
-    Add more APIs: Just create a new .js file in the /api folder!
+    <p>Add more APIs: Just create a new .js file in the /api folder!</p>
+</body>
+</html>
 
