@@ -54,7 +54,8 @@ Clicks: 0
 
 
 async function incrementCounter() {
-  const res = await fetch('https://YOUR-PROJECT.vercel.app/api/counter?id=my-button');
+  // const res = await fetch('https://YOUR-PROJECT.vercel.app/api/counter?id=my-button');
+  const res = await fetch('https://apis-bay.vercel.app/api/counter?id=my-button');
   const data = await res.json();
   document.getElementById('count').textContent = data.count;
 }
@@ -71,7 +72,8 @@ incrementCounter();
 
 
 async function trackVisitor() {
-  const res = await fetch('https://YOUR-PROJECT.vercel.app/api/visitor-tracker?page=homepage');
+  // const res = await fetch('https://YOUR-PROJECT.vercel.app/api/visitor-tracker?page=homepage');
+  const res = await fetch('https://apis-bay.vercel.app/api/visitor-tracker?page=homepage');
   const data = await res.json();
   document.getElementById('stats').innerHTML = `
     Unique visitors: ${data.uniqueVisitors}
@@ -86,6 +88,10 @@ trackVisitor();
 
 ### View All Visitors
 Visit: `https://YOUR-PROJECT.vercel.app/api/get-visitors?page=homepage`
+
+https://apis-bay.vercel.app/api/get-visitors?page=homepage
+
+
 
 ## ➕ Adding More APIs
 
@@ -104,11 +110,24 @@ Push to GitHub, and Vercel will auto-deploy!
 After deployment, your API will be at:
 `https://YOUR-PROJECT-NAME.vercel.app/api/endpoint-name`
 
+https://apis-bay.vercel.app/api/endpoint-name
 
 
 
 
 
+link to prompt and instructions chat.
 
 https://claude.ai/share/17123417-2053-425f-96aa-046b0c06c180
+
+
+links cause i deployed it: 
+
+apis-bay is the name of the vercel project
+
+https://apis-bay.vercel.app/api/get-visitors?page=homepage
+
+
+
+
 
