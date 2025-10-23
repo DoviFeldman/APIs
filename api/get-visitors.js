@@ -1,18 +1,18 @@
-//import { kv } from '@vercel/kv';
+import { kv } from '@vercel/kv';
 
 // added this code to see if it will change it, also added "@vercel/kv": "^2.0.0"
 
-// was "@vercel/kv": "^1.0.1"
+// was "@vercel/kv": "^1.0.1" // changed this back
 // in vercel.json or something maybe the other one i forgot, chang ehtem back if ti doesnt work. 
 // somethings obviously wrong.
 // this sucks and is so hard. 
 
-import { createClient } from '@vercel/kv';
+// import { createClient } from '@vercel/kv';
 
-const kv = createClient({
-  url: process.env.KV_REST_API_URL,
-  token: process.env.KV_REST_API_TOKEN,
-});
+// const kv = createClient({
+//   url: process.env.KV_REST_API_URL,
+//   token: process.env.KV_REST_API_TOKEN,
+// });
 
 // till here
 
