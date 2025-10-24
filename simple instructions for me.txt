@@ -1,0 +1,57 @@
+ok simple instructions for me:
+
+add this code function within the <script> tags of any github pages:
+
+
+"
+
+async function trackVisitor() {
+  const res = await fetch('https://apis-pearl-eight.vercel.app/api/visitor-tracker?page=homepage');
+  const data = await res.json();
+  document.getElementById('stats').innerHTML = `
+    Unique visitors: ${data.uniqueVisitors}
+    Your visits: ${data.yourVisits}
+    Location: ${data.location}
+  `;
+}
+
+trackVisitor();
+
+"
+
+go to this URL to see everyone who viseted your website:
+"
+https://apis-pearl-eight.vercel.app/api/get-visitors?page=homepage
+"
+
+ok now.
+the  "?page=homepage" part of this link: 
+"https://apis-pearl-eight.vercel.app/api/visitor-tracker?page=homepage"
+and this link:
+"https://apis-pearl-eight.vercel.app/api/get-visitors?page=homepage"
+, the visitor tracker link and the get visitors link, 
+
+show what page they visit, and lets me see the page that they visit,
+
+so i think if i had another github pages that i wanted to track, or another page that i wanted to track, i just change the "homepage" part, 
+and when i visit the link i change it to the same name that i changed it to, and then i can seperatly track 2 different pages.
+
+also: 
+"https://apis-pearl-eight.vercel.app/api/visitor-tracker?page=homepage"
+go to this link, the visitors trackers, to increase the count to test it to see if it works.
+
+...
+
+
+yes! 
+It worked! 
+
+this is now a thing: 
+"https://apis-pearl-eight.vercel.app/api/visitor-tracker?page=jeff"
+
+"https://apis-pearl-eight.vercel.app/api/get-visitors?page=jeff"
+
+so i should use that in my next gihub pages. 
+Sweet! 
+
+Vercel as a backend API totally works!!!!!
