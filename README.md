@@ -55,7 +55,7 @@ Clicks: 0
 
 async function incrementCounter() {
   // const res = await fetch('https://YOUR-PROJECT.vercel.app/api/counter?id=my-button');
-  const res = await fetch('https://apis-bay.vercel.app/api/counter?id=my-button');
+  const res = await fetch('https://apis-pearl-eight.vercel.app/api/counter?id=my-button');
   const data = await res.json();
   document.getElementById('count').textContent = data.count;
 }
@@ -73,7 +73,7 @@ incrementCounter();
 
 async function trackVisitor() {
   // const res = await fetch('https://YOUR-PROJECT.vercel.app/api/visitor-tracker?page=homepage');
-  const res = await fetch('https://apis-bay.vercel.app/api/visitor-tracker?page=homepage');
+  const res = await fetch('https://apis-pearl-eight.vercel.app/api/visitor-tracker?page=homepage');
   const data = await res.json();
   document.getElementById('stats').innerHTML = `
     Unique visitors: ${data.uniqueVisitors}
@@ -89,7 +89,7 @@ trackVisitor();
 ### View All Visitors
 Visit: `https://YOUR-PROJECT.vercel.app/api/get-visitors?page=homepage`
 
-https://apis-bay.vercel.app/api/get-visitors?page=homepage
+https://apis-pearl-eight.vercel.app/api/get-visitors?page=homepage
 
 
 
@@ -110,11 +110,11 @@ Push to GitHub, and Vercel will auto-deploy!
 After deployment, your API will be at:
 `https://YOUR-PROJECT-NAME.vercel.app/api/endpoint-name`
 
-https://apis-bay.vercel.app/api/endpoint-name
+https://apis-pearl-eight.vercel.app/api/endpoint-name
 
 
 
-
+YAY IT WORKS!!!!!!!!! 
 
 link to prompt and instructions chat.
 
@@ -123,9 +123,17 @@ https://claude.ai/share/17123417-2053-425f-96aa-046b0c06c180
 
 links cause i deployed it: 
 
-apis-bay is the name of the vercel project
+//apis-bay is the OLD name of the vercel project
 
-https://apis-bay.vercel.app/api/get-visitors?page=homepage
+apis-pearl-eight is the NEW name of the vercel project
+
+https://apis-pearl-eight.vercel.app/api/get-visitors?page=homepage
+
+
+apis-pearl-eight.vercel.app
+NEW NAME 
+
+BASICALLY THE PROBLEM WAS THAT VERCEL switched from KV redis to like self hosted Regular Redis but Claude didnt know that so it wrote the old code for me and also they all said that im supposed to have 4 enviroment verables, even in vercel itself and also even in the youtube tutorial, but since they switched im only supposed to have one so vercel was right but the code was wrong so a new Claude fixed it after some back and forth and internet searching and now it works!!!!! 
 
 
 
