@@ -1,4 +1,16 @@
-import { kv } from '@vercel/kv';
+import { createClient } from 'redis';
+
+let redis;
+
+async function getRedis() {
+  if (!redis) {
+    redis = createClient({
+      url: process.env.KV_REDIS_URL || process.env.REDIS_URL
+    });
+    await redis.connect();
+  }
+  return redis;
+}
 
 export default async function handler(req, res) {
   if (req.method === 'OPTIONS') {
@@ -12,30 +24,27 @@ export default async function handler(req, res) {
   }
 
   try {
-    // Get IP address
+    const client = await getRedis();
+    
     const ip = req.headers['x-forwarded-for']?.split(',')[0] || 
                req.headers['x-real-ip'] || 
                'unknown';
 
-    // Get location from Vercel headers
     const city = req.headers['x-vercel-ip-city'] || 'Unknown';
     const country = req.headers['x-vercel-ip-country'] || 'Unknown';
     const region = req.headers['x-vercel-ip-country-region'] || 'Unknown';
 
-    // Create unique visitor ID
     const visitorKey = `visitor:${page}:${ip}`;
     const visitorsListKey = `visitors-list:${page}`;
 
-    // Get or create visitor data
-    const existingVisitor = await kv.get(visitorKey);
+    const existingVisitor = await client.get(visitorKey);
     
     if (existingVisitor) {
-      // Increment visit count
-      existingVisitor.visits += 1;
-      existingVisitor.lastVisit = new Date().toISOString();
-      await kv.set(visitorKey, existingVisitor);
+      const visitor = JSON.parse(existingVisitor);
+      visitor.visits += 1;
+      visitor.lastVisit = new Date().toISOString();
+      await client.set(visitorKey, JSON.stringify(visitor));
     } else {
-      // New visitor
       const newVisitor = {
         ip,
         city,
@@ -45,22 +54,20 @@ export default async function handler(req, res) {
         firstVisit: new Date().toISOString(),
         lastVisit: new Date().toISOString()
       };
-      await kv.set(visitorKey, newVisitor);
-      
-      // Add to visitors list
-      await kv.sadd(visitorsListKey, ip);
+      await client.set(visitorKey, JSON.stringify(newVisitor));
+      await client.sAdd(visitorsListKey, ip);
     }
 
-    // Get total unique visitors
-    const uniqueVisitors = await kv.scard(visitorsListKey) || 0;
+    const uniqueVisitors = await client.sCard(visitorsListKey) || 0;
+    const currentVisitor = JSON.parse(await client.get(visitorKey));
 
     return res.status(200).json({
       success: true,
       uniqueVisitors,
-      yourVisits: existingVisitor ? existingVisitor.visits + 1 : 1,
+      yourVisits: currentVisitor.visits,
       location: `${city}, ${region}, ${country}`
     });
   } catch (error) {
-    return res.status(500).json({ error: 'Failed to track visitor' });
+    return res.status(500).json({ error: 'Failed to track visitor', details: error.message });
   }
 }
