@@ -1,20 +1,16 @@
-import { kv } from '@vercel/kv';
+import { createClient } from 'redis';
 
-// added this code to see if it will change it, also added "@vercel/kv": "^2.0.0"
+let redis;
 
-// was "@vercel/kv": "^1.0.1" // changed this back
-// in vercel.json or something maybe the other one i forgot, chang ehtem back if ti doesnt work. 
-// somethings obviously wrong.
-// this sucks and is so hard. 
-
-// import { createClient } from '@vercel/kv';
-
-// const kv = createClient({
-//   url: process.env.KV_REST_API_URL,
-//   token: process.env.KV_REST_API_TOKEN,
-// });
-
-// till here
+async function getRedis() {
+  if (!redis) {
+    redis = createClient({
+      url: process.env.KV_REDIS_URL || process.env.REDIS_URL
+    });
+    await redis.connect();
+  }
+  return redis;
+}
 
 export default async function handler(req, res) {
   if (req.method === 'OPTIONS') {
@@ -28,18 +24,17 @@ export default async function handler(req, res) {
   }
 
   try {
-    // Get all visitor IPs for this page
-    const visitorIps = await kv.smembers(`visitors-list:${page}`) || [];
+    const client = await getRedis();
     
-    // Get details for each visitor
+    const visitorIps = await client.sMembers(`visitors-list:${page}`) || [];
+    
     const visitors = await Promise.all(
       visitorIps.map(async (ip) => {
-        const data = await kv.get(`visitor:${page}:${ip}`);
-        return data;
+        const data = await client.get(`visitor:${page}:${ip}`);
+        return data ? JSON.parse(data) : null;
       })
     );
 
-    // Filter out any null values and sort by visit count
     const validVisitors = visitors.filter(v => v !== null)
       .sort((a, b) => b.visits - a.visits);
 
@@ -49,6 +44,6 @@ export default async function handler(req, res) {
       visitors: validVisitors
     });
   } catch (error) {
-    return res.status(500).json({ error: 'Failed to get visitors' });
+    return res.status(500).json({ error: 'Failed to get visitors', details: error.message });
   }
 }
