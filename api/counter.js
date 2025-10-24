@@ -1,7 +1,18 @@
-import { kv } from '@vercel/kv';
+import { createClient } from 'redis';
+
+let redis;
+
+async function getRedis() {
+  if (!redis) {
+    redis = createClient({
+      url: process.env.KV_REDIS_URL || process.env.REDIS_URL
+    });
+    await redis.connect();
+  }
+  return redis;
+}
 
 export default async function handler(req, res) {
-  // Handle CORS preflight
   if (req.method === 'OPTIONS') {
     return res.status(200).end();
   }
@@ -13,8 +24,8 @@ export default async function handler(req, res) {
   }
 
   try {
-    // Increment counter
-    const count = await kv.incr(`counter:${id}`);
+    const client = await getRedis();
+    const count = await client.incr(`counter:${id}`);
     
     return res.status(200).json({ 
       id,
@@ -22,6 +33,6 @@ export default async function handler(req, res) {
       message: 'Counter incremented successfully'
     });
   } catch (error) {
-    return res.status(500).json({ error: 'Failed to increment counter' });
+    return res.status(500).json({ error: 'Failed to increment counter', details: error.message });
   }
 }
