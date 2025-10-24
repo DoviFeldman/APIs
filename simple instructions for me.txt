@@ -55,3 +55,28 @@ so i should use that in my next gihub pages.
 Sweet! 
 
 Vercel as a backend API totally works!!!!!
+
+
+Counter Button instructions for me(tested):
+
+
+https://apis-pearl-eight.vercel.app/api/counter?id=my-button
+
+and this is just total how many times someone viseted this link and it shows in in the json.
+
+so i can make a github pages that when they press a button it presses the link and then it also fetches from the same link to see how many times they clicked the button.
+
+or like if someone scans a qr code it visits a github pages with the vercel api link which incraments it and then gets the data from the same vercel api link to see how many people actually viseted the site from scanning the qr code. 
+
+and also i can make different pages in the github pages reposetory that diffferent qr codes go to so i can have many qr codes that only show how many people scanned that particular qr code.
+
+https://apis-pearl-eight.vercel.app/api/counter?id=my-button1
+
+this one i also visited so it shows 1 and its added to the database as an example.
+
+
+
+
+
+
+
